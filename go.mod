@@ -1,4 +1,4 @@
-module terminal-takeover
+module t-tron
 
 go 1.25.1
 
