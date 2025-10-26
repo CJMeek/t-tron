@@ -23,16 +23,20 @@ func main() {
 	defStyle := tcell.StyleDefault.Background(tcell.ColorBlack).Foreground(tcell.ColorBlack)
 	s.SetStyle(defStyle)
 
+	width, height := s.Size()
+
 	player1 := Player{
-		X:      2,
-		Y:      1,
-		Colour: tcell.ColorPurple,
+		X:         1,
+		Y:         1,
+		Direction: "right",
+		Colour:    tcell.ColorPurple,
 	}
 
 	player2 := Player{
-		X:      8,
-		Y:      1,
-		Colour: tcell.ColorMediumTurquoise,
+		X:         width - 1,
+		Y:         height - 1,
+		Direction: "left",
+		Colour:    tcell.ColorMediumTurquoise,
 	}
 
 	game := Game{
@@ -45,8 +49,6 @@ func main() {
 	go game.Run(quit)
 
 	for {
-
-		width, height := s.Size()
 
 		switch event := game.Screen.PollEvent().(type) {
 		case *tcell.EventResize:
