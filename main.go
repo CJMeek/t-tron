@@ -28,22 +28,18 @@ func main() {
 	player1 := Player{
 		X:         1,
 		Y:         1,
-		Direction: "right",
+		Direction: DirectionRight,
 		Colour:    tcell.ColorPurple,
 	}
 
 	player2 := Player{
-		X:         width - 1,
+		X:         width - 1 - PlayerWidth,
 		Y:         height - 1,
-		Direction: "left",
+		Direction: DirectionLeft,
 		Colour:    tcell.ColorMediumTurquoise,
 	}
 
-	game := Game{
-		Screen:  s,
-		Player1: player1,
-		Player2: player2,
-	}
+	game := NewGame(s, player1, player2)
 
 	quit := make(chan struct{})
 	go game.Run(quit)
@@ -59,24 +55,26 @@ func main() {
 				return
 			}
 
+			// Player 1 controls (Arrow keys) - only change direction
 			if event.Key() == tcell.KeyUp {
-				game.Player1.MoveUp()
+				game.SetPlayer1Direction(DirectionUp)
 			} else if event.Key() == tcell.KeyDown {
-				game.Player1.MoveDown(height)
+				game.SetPlayer1Direction(DirectionDown)
 			} else if event.Key() == tcell.KeyLeft {
-				game.Player1.MoveLeft()
+				game.SetPlayer1Direction(DirectionLeft)
 			} else if event.Key() == tcell.KeyRight {
-				game.Player1.MoveRight(width)
+				game.SetPlayer1Direction(DirectionRight)
 			}
 
-			if event.Rune() == 'w' {
-				game.Player2.MoveUp()
-			} else if event.Rune() == 'a' {
-				game.Player2.MoveLeft()
-			} else if event.Rune() == 's' {
-				game.Player2.MoveDown(height)
-			} else if event.Rune() == 'd' {
-				game.Player2.MoveRight(width)
+			// Player 2 controls (WASD) - only change direction
+			if event.Rune() == 'w' || event.Rune() == 'W' {
+				game.SetPlayer2Direction(DirectionUp)
+			} else if event.Rune() == 'a' || event.Rune() == 'A' {
+				game.SetPlayer2Direction(DirectionLeft)
+			} else if event.Rune() == 's' || event.Rune() == 'S' {
+				game.SetPlayer2Direction(DirectionDown)
+			} else if event.Rune() == 'd' || event.Rune() == 'D' {
+				game.SetPlayer2Direction(DirectionRight)
 			}
 		}
 	}
