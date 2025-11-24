@@ -47,8 +47,6 @@ This project is currently under active development. The following features are p
 
 ### To-Do List
 
-- [ ] **Collision Detection** - Implement proper collision detection for players and walls
 - [ ] **Terminal Size Handling** - Fix terminal resizing and ensure proper game area scaling
-- [ ] **Local Multiplayer Controls** - Fix and improve local multiplayer control scheme
 - [ ] **Online Multiplayer** - Add network multiplayer functionality
 - [ ] **GUI and Game Settings** - Add Bubbletea GUI to start the game and change settings about the game (e.g player speed, crashing into walls, game bounds(?))
